@@ -1,0 +1,36 @@
+{
+  "name": "comite-milagros-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tony-ojeda/comite-milagros-back.git"
+  },
+  "author": "Tony Ojeda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tony-ojeda/comite-milagros-back/issues"
+  },
+  "homepage": "https://github.com/tony-ojeda/comite-milagros-back#readme",
+  "dependencies": {
+    "@sendgrid/mail": "^7.6.2",
+    "bcrypt": "^5.0.1",
+    "cloudinary": "^1.28.1",
+    "composable-middleware": "^0.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.7.2",
+    "slugify": "^1.6.5"
+  }
+}
