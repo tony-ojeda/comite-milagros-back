@@ -5,7 +5,7 @@ const Role = require('../api/role/role.model');
 
 function signToken(payload) {
   const token = jsonwebtoken.sign(payload, process.env.SECRET_KEY_JWT, {
-    expiresIn: '1h'
+    expiresIn: '5h'
   })
 
   return token

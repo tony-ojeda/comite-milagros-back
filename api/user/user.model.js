@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 
 const UserSchema = new mongoose.Schema(
   {
-    username: {
+    name: {
       type: String,
       unique: true
     },
@@ -39,6 +39,10 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
     },
     presentation: {
+      type: String,
+      lowercase: true,
+    },
+    avatar: {
       type: String,
       lowercase: true,
     },
@@ -84,6 +88,7 @@ UserSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(user.password, salt)
     user.password = hash
+    user.avatar = 'https://thumbs.dreamstime.com/b/hombre-de-negocios-profile-ico-109874231.jpg';
 
   } catch(error) {
     next(error)

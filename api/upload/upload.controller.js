@@ -3,6 +3,7 @@ const fs = require("fs");
 
 async function uploadHandler(req, res) {
   const { file } = req;
+  console.log('silgle file', file)
   let storedPath = "general";
 
   const size = file.size / 1024 / 1024;

@@ -15,6 +15,11 @@ async function getAllUsers(req, res) {
   }
 }
 
+async function currentUserHandler(req, res) {
+  const {user} = req;
+  return res.status(200).json(user)
+}
+
 async function getUserById(req, res) {
   const { id } = req.params;
   try {
@@ -51,7 +56,7 @@ async function createUser(req, res, next) {
   } 
 }
 
-async function prepareUser({ userName, firstName, lastName, email, password, roles }) {
+async function prepareUser({ name, firstName, lastName, email, password, roles, phone }) {
   let assingRols = [];
 
   if(roles){
@@ -68,10 +73,11 @@ async function prepareUser({ userName, firstName, lastName, email, password, rol
       .digest('hex');
 
   return new User({
-    userName, 
+    name, 
     firstName, 
     lastName, 
     email,
+    phone,
     password, 
     roles: assingRols, 
     passwordResetToken,
@@ -112,4 +118,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  currentUserHandler,
 };

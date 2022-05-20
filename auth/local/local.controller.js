@@ -3,9 +3,9 @@ const { findUser } = require('../../api/user/user.service')
 const User = require('../../api/user/user.model')
 
 async function loginUserHandler(req, res) {
-  const { username, password } = req.body
+  const { email, password } = req.body
   try {
-    const user = await User.findOne({ username }).populate('roles')
+    const user = await User.findOne({ email }).populate('roles')
     if (!user) {
       return res.status(400).json({ message: "User not found" })
     }
@@ -82,5 +82,5 @@ async function verifyAccount(req, res) {
 module.exports = {
   verifyAccount,
   loginUserHandler,
-  changePasswordHandler
+  changePasswordHandler,
 }

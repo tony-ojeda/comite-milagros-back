@@ -1,7 +1,7 @@
 const User = require('./user.model')
 
 async function getUserByEmail(email) {
-  const user = await User.findOne({ email }) || {}
+  const user = await User.findOne({ email }, 'id name firstName lastName email roles phone avatar') || {}
   return user
 }
 

@@ -1,5 +1,6 @@
 const { Router } = require('express');
-const { verifyAccount, changePasswordHandler, loginUserHandler } = require('./local.controller')
+const { verifyAccount, changePasswordHandler, loginUserHandler, currentUserHandler } = require('./local.controller')
+const { isAuthenticated } = require('../auth.services');
 
 const router = Router()
 
