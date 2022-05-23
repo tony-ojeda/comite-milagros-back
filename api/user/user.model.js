@@ -5,7 +5,6 @@ const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      unique: true
     },
     firstName: {
       type: String,
@@ -15,17 +14,28 @@ const UserSchema = new mongoose.Schema(
     lastName: {
       type: String,
       lowercase: true,
+    },
+    haveUser: {
+      type: Boolean,
+      default: true,
       required: true
     },
     password: {
       type: String,
-      required: true,
       trim: true
+    },
+    dateBirth: {
+      type: String,
+      trim: true
+    },
+    identityNumber: {
+      type: String,
+      trim: true,
+      unique: true
     },
     email: {
       type: String,
       unique: true,
-      required: true,
       trim: true
     },
     status: {
@@ -39,6 +49,10 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
     },
     presentation: {
+      type: String,
+      lowercase: true,
+    },
+    address: {
       type: String,
       lowercase: true,
     },
@@ -63,12 +77,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       lowercase: true,
     },
-    roles: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Role"
-      }
-    ],
+    role: {
+      type: String,
+      default: 'carrier',
+      enum: ['admin', 'secretary', 'carrier'],
+      required: true
+    },
     verifyAccountToken: String,
     verifyAccountExpires: Date,
     passwordResetToken: String,
@@ -81,16 +95,21 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.pre('save', async function(next) {
   const user = this
+  console.log('user is', user)
   try {
-    if (!user.isModified('password')) {
+    if (user.password && !user.isModified('password')) {
+      console.log('hoil')
       return next()
     }
-    const salt = await bcrypt.genSalt(10)
-    const hash = await bcrypt.hash(user.password, salt)
-    user.password = hash
+    if (user.haveUser) {
+      const salt = await bcrypt.genSalt(10)
+      const hash = await bcrypt.hash(user.password, salt)
+      user.password = hash
+    }
     user.avatar = 'https://thumbs.dreamstime.com/b/hombre-de-negocios-profile-ico-109874231.jpg';
 
   } catch(error) {
+    console.log('Error', error)
     next(error)
   }
   next()

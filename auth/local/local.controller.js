@@ -5,7 +5,7 @@ const User = require('../../api/user/user.model')
 async function loginUserHandler(req, res) {
   const { email, password } = req.body
   try {
-    const user = await User.findOne({ email }).populate('roles')
+    const user = await User.findOne({ email })
     if (!user) {
       return res.status(400).json({ message: "User not found" })
     }
@@ -15,15 +15,15 @@ async function loginUserHandler(req, res) {
     if (!isMatch) {
       return res.status(500).json({ message: "Wrong password"})
     }
-    const useRoles = user.roles;
-    const rolesArray = useRoles.map((item) => {
-        return item.name;
-    });
+    // const useRole = user.role;
+    // const rolesArray = useRole.map((item) => {
+    //     return item.name;
+    // });
 
 
     const token = signToken(user.profile)
     
-    return res.status(200).json({ message: "correct login", token, user: user.profile, roles: rolesArray })
+    return res.status(200).json({ message: "correct login", token, user: user.profile, role: user.role })
 
 
   } catch(error) {
