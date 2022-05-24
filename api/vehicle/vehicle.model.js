@@ -8,6 +8,9 @@ const VehicleSchema = new mongoose.Schema(
     model: {
       type: String,
     },
+    aliasName: {
+      type: String,
+    },
     category: {
       type: String
     },
@@ -17,32 +20,14 @@ const VehicleSchema = new mongoose.Schema(
     licensePlate: {
       type: String,
     },
-    url_image: {
+    urlImage: {
       type: String
     },
-    userParentData: {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-      },
-      role: {
-        type: String,
-        required: true
-      }
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
     },
-    userData: {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-      },
-      role: {
-        type: String,
-        required: true
-      }
-    },
-    
   },
   {
     timestamps: true
