@@ -35,8 +35,6 @@ async function getVehicleExitById(req, res) {
 
 async function createVehicleExit(req, res) {
   const info = req.body;
-  const user = req.user
-  info.slug = await setSlug(info.name);
   
   try {
     const vehicleExit = await VehicleExit.create({ ...info})
@@ -45,30 +43,6 @@ async function createVehicleExit(req, res) {
     console.error(err)
     res.status(400).json({ error: err})
   } 
-}
-
-async function setSlug(name) {
-  if (name) {
-    try {
-      let slug = await slugify(name);
-      const find = await VehicleExit.findOne({ slug })
-      if (find) {
-        let index = 1;
-        let newSlug = `${slug}-${index}`;
-        const findNewSlug = await VehicleExit.findOne({ slug: newSlug })
-        while( findNewSlug ) {
-          index++;
-          newSlug = `${slug}-${index}`;
-        }
-        slug = newSlug;
-      }
-
-      return slug;
-
-    } catch(error) {
-      console.error(error);
-    }
-  }
 }
 
 async function updateVehicleExit(req, res) {

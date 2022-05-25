@@ -22,9 +22,10 @@ const VehicleExitSchema = new mongoose.Schema(
       required: true,
     },
     amount: {
-      type: mongoose.Schema.Types.Decimal128,
-      default: 0.0,
+      type: Number,
+      default: 0,
       required: true,
+      // set: setAmount,
     },
     dateExit: {
       type: Date,
@@ -36,5 +37,10 @@ const VehicleExitSchema = new mongoose.Schema(
     timestamps: true
   }
 )
+
+function setAmount(value) {
+  return Math.round(value);
+};
+
 
 module.exports = mongoose.model('VehicleExit', VehicleExitSchema)

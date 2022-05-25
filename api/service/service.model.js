@@ -7,13 +7,19 @@ const ServiceSchema = new mongoose.Schema(
       required: true,
     },
     amount: {
-      type: String,
+      type: Number,
+      default: 0,
       required: true,
+      // set: setAmount,
     },
   },
   {
     timestamps: true
   }
 )
+
+function setAmount(value) {
+  return Math.round(value);
+};
 
 module.exports = mongoose.model('Service', ServiceSchema)
