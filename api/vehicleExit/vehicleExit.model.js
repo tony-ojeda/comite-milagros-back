@@ -2,20 +2,19 @@ const mongoose = require('mongoose')
 
 const VehicleExitSchema = new mongoose.Schema(
   {
-    carrier: {
+    carrierId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Carrier',
+      ref: 'User',
       required: true,
     },
-    vehicle: {
+    vehicleId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Vehicle',
       required: true,
     },
-    service: {
+    serviceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Service',
-      required: true,
     },
     serviceName: {
       type: String,
@@ -34,7 +33,9 @@ const VehicleExitSchema = new mongoose.Schema(
     }
   },
   {
-    timestamps: true
+    timestamps: true,
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true }
   }
 )
 
@@ -42,5 +43,19 @@ function setAmount(value) {
   return Math.round(value);
 };
 
+
+VehicleExitSchema.virtual('carrier', {
+  ref: 'User',
+  localField: 'carrierId',
+  foreignField: '_id',
+  justOne: true
+})
+
+VehicleExitSchema.virtual('vehicle', {
+  ref: 'Vehicle',
+  localField: 'vehicleId',
+  foreignField: '_id',
+  justOne: true
+})
 
 module.exports = mongoose.model('VehicleExit', VehicleExitSchema)

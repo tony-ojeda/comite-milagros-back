@@ -17,7 +17,7 @@ async function getAllUsers(req, res) {
       .limit(limit)
       .sort({ createdAt: 'desc' });
     
-    res.status(200).json({ users });
+    res.status(200).json(users);
   } catch (err) {
     console.error(err);
     res.status(400).json({ error: err });

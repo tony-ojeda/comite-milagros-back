@@ -11,7 +11,7 @@ const {
 const router = Router()
 
 //CRUD
-router.post('/products', hasRole(['admin']), createVehicle)
+// router.post('/products', hasRole(['admin']), createVehicle)
 // router.get('/', isAuthenticated(), getAllVehicles)
 router.get('/', getAllVehicles)
 // router.get('/:id', isAuthenticated(), getVehicleById)

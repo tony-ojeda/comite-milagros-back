@@ -23,7 +23,7 @@ const VehicleSchema = new mongoose.Schema(
     urlImage: {
       type: String
     },
-    carrier: {
+    carrierId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },

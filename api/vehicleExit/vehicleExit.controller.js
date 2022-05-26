@@ -11,7 +11,8 @@ async function getAllVehicleExits(req, res) {
     const searchValue = new RegExp(search, "gi") || undefined
     // const vehicleExit = await VehicleExit.find({'userData.role': 'Admin'},{ name: findValue}, { name: 1, description: 1}).skip(skip).limit(limit)
     const vehicleExit = await VehicleExit.find({type, $or: [{ name: searchValue }, { description: searchValue }] })
-      // .populate('userData.user', '_id firstName lastName email')
+      .populate('carrier', 'firstName lastName')
+      .populate('vehicle', 'mark aliasName')
       .skip(skip)
       .limit(limit);
     res.status(200).json(vehicleExit)
