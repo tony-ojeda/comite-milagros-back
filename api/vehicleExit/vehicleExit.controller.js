@@ -2,15 +2,18 @@ const VehicleExit = require('./vehicleExit.model')
 const slugify = require('slugify')
 
 async function getAllVehicleExits(req, res) {
-  const { page, limit, search, type = '' } = req.query
+  const { page, limit, search, type = '', carrierId = '', paymentStatus = false} = req.query
+  const query = {};
+  carrierId ? query["carrierId"] = carrierId: '';
+  query["paymentStatus"] =  paymentStatus;
+  console.log('query', query)
 
   const skip = limit * ( page - 1)
 
   try {
-
     const searchValue = new RegExp(search, "gi") || undefined
     // const vehicleExit = await VehicleExit.find({'userData.role': 'Admin'},{ name: findValue}, { name: 1, description: 1}).skip(skip).limit(limit)
-    const vehicleExit = await VehicleExit.find({type, $or: [{ name: searchValue }, { description: searchValue }] })
+    const vehicleExit = await VehicleExit.find({...query, $or: [{ name: searchValue }, { description: searchValue }] })
       .populate('carrier', 'firstName lastName')
       .populate('vehicle', 'mark aliasName')
       .skip(skip)

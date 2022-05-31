@@ -1,5 +1,7 @@
 const user = require('./api/user')
 const pkg = require('./package.json')
+const transaction = require('./api/transaction')
+const transactionDetail = require('./api/transactionDetail')
 const vehicle = require('./api/vehicle')
 const service = require('./api/service')
 const vehicleExit = require('./api/vehicleExit')
@@ -19,6 +21,8 @@ function routes(app) {
 
   app.use('/api/v1/users', user)
   app.use('/api/v1/vehicles', vehicle)
+  app.use('/api/v1/transactions', transaction)
+  app.use('/api/v1/transactionDetails', transactionDetail)
   app.use('/api/v1/vehicleExits', vehicleExit)
   app.use('/api/v1/services', service)
   app.use('/api/v1/uploads', upload),

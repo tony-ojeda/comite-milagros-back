@@ -26,6 +26,19 @@ const VehicleExitSchema = new mongoose.Schema(
       required: true,
       // set: setAmount,
     },
+    payment: {
+      type: Number,
+      default: 0,
+      // set: setAmount,
+    },
+    paymentStatus: {
+      type: Boolean,
+      default: 0,
+    },
+    paymentDate: {
+      type: Date,
+      default: Date.now,
+    },
     dateExit: {
       type: Date,
       default: Date.now,
