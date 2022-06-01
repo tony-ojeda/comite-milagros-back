@@ -17,7 +17,8 @@ async function getAllVehicleExits(req, res) {
       .populate('carrier', 'firstName lastName')
       .populate('vehicle', 'mark aliasName')
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .sort({ createdAt: 'desc' });
     res.status(200).json(vehicleExit)
   } catch(err) {
     console.error(err)

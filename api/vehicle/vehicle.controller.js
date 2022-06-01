@@ -7,13 +7,14 @@ async function getAllVehicles(req, res) {
   const skip = limit * ( page - 1)
 
   try {
-
     const searchValue = new RegExp(search, "gi") || undefined
     // const vehicle = await Vehicle.find({'userData.role': 'Admin'},{ name: findValue}, { name: 1, description: 1}).skip(skip).limit(limit)
     const vehicle = await Vehicle.find({type, $or: [{ name: searchValue }, { description: searchValue }] })
       // .populate('userData.user', '_id firstName lastName email')
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .sort({ createdAt: 'desc' });
+
     res.status(200).json(vehicle)
   } catch(err) {
     console.error(err)

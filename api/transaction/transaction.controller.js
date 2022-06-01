@@ -12,9 +12,12 @@ async function getAllTransactions(req, res) {
     const searchValue = new RegExp(search, "gi") || undefined
     // const transaction = await Transaction.find({'userData.role': 'Admin'},{ name: findValue}, { name: 1, description: 1}).skip(skip).limit(limit)
     const transaction = await Transaction.find({type, $or: [{ name: searchValue }, { description: searchValue }] })
+      .populate('carrier', 'firstName lastName identityNumber phone')
+      .populate('user', 'name')
       // .populate('userData.user', '_id firstName lastName email')
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .sort({ createdAt: 'desc' });
     res.status(200).json(transaction)
   } catch(err) {
     console.error(err)
